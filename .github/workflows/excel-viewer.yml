@@ -27,15 +27,12 @@ jobs:
       - name: Convert Excel to Markdown
         id: convert
         run: |
-          # 結果をTempディレクトリに保存
+          # Save the result to a temporary file
           python convert_excel_to_markdown.py $GITHUB_WORKSPACE/Sample.xlsx > $RUNNER_TEMP/table.md
-        env:
-          TEMP: ${{ runner.temp }}
+
       - name: Update Sample.md
         run: |
-          python update_sample_md.py $TABLE
-        env:
-          TABLE: ${{ steps.convert.outputs.table }}
+          python update_sample_md.py $RUNNER_TEMP/table.md
 
       - name: Commit and push changes
         run: |
