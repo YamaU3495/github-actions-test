@@ -16,9 +16,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas openpyxl
+          pip install pandas openpyxl tabulate
 
       - name: Convert Excel to Markdown
         run: |
-          python convert_excel_to_markdown.py
+          python convert_excel_to_markdown.py $GITHUB_WORKSPACE/Sample.xlsx
 
