@@ -29,6 +29,7 @@ jobs:
         run: |
           # Save the result to a temporary file
           python .github/scripts/convert_excel_to_markdown.py $GITHUB_WORKSPACE/Sample.xlsx "Sheet1" > $RUNNER_TEMP/table.md
+          cat $RUNNER_TEMP/table.md
 
       - name: Update Sample.md
         run: |
