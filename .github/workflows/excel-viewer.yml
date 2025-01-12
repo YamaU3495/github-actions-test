@@ -32,9 +32,12 @@ jobs:
           echo "$result" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Save Markdown to file
+      - name: Update Sample.md
         run: |
-          echo "${{ steps.convert.outputs.table }}" > Sample.md
+          python update_sample_md.py $TABLE
+        env:
+          TABLE: ${{ steps.convert.outputs.result }}
+
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
