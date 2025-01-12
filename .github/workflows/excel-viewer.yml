@@ -27,14 +27,14 @@ jobs:
       - name: Convert Excel to Markdown
         id: convert
         run: |
-          result=$(python convert_excel_to_markdown.py $GITHUB_WORKSPACE/Sample.xlsx)
-          echo "$result"
-          echo "table=$result" >> $GITHUB_OUTPUT
+          python convert_excel_to_markdown.py $GITHUB_WORKSPACE/Sample.xlsx > markdown_output.txt
+          echo "table<<EOF" >> $GITHUB_OUTPUT
+          cat markdown_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Save Markdown to file
         run: |
           echo "${{ steps.convert.outputs.table }}" > Sample.md
-
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
