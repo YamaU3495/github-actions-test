@@ -1,5 +1,8 @@
 name: Excel to Markdown
-on: push                               # ワークフローのトリガー(今回はpush)
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   excel-to-markdown:
