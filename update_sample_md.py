@@ -1,13 +1,20 @@
 import sys
 import os
 
-# Get the Markdown table from the command-line arguments
+# Check if the table file path is provided as a command-line argument
 if len(sys.argv) < 2:
-    raise ValueError("Markdown table must be provided as a command-line argument")
+    raise ValueError("Table file path must be provided as a command-line argument")
 
-markdown_table = sys.argv[1]
-# Show markdown_table
-print(markdown_table)
+table_file_path = sys.argv[1]
+
+# Check if the table file exists
+if not os.path.exists(table_file_path):
+    raise FileNotFoundError(f"Table file not found: {table_file_path}")
+
+# Read the table content from the file
+with open(table_file_path, 'r') as f:
+    markdown_table = f.read()
+    print(markdown_table)
 
 # Check if Sample.md exists
 if not os.path.exists('Sample.md'):
