@@ -14,6 +14,5 @@ df = pd.read_excel(excel_file_path)
 # Convert the DataFrame to a Markdown table
 markdown_table = df.to_markdown(index=False)
 
-# Save the Markdown table to a file
-with open('output.md', 'w') as f:
-    f.write(markdown_table)
+# Print the Markdown table
+sys.stdout.write(markdown_table)
