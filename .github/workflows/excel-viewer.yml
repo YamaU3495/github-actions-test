@@ -27,9 +27,9 @@ jobs:
       - name: Convert Excel to Markdown
         id: convert
         run: |
-          python convert_excel_to_markdown.py $GITHUB_WORKSPACE/Sample.xlsx > markdown_output.txt
+          result=$(python convert_excel_to_markdown.py $GITHUB_WORKSPACE/Sample.xlsx)
           echo "table<<EOF" >> $GITHUB_OUTPUT
-          cat markdown_output.txt >> $GITHUB_OUTPUT
+          echo "$result" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Save Markdown to file
