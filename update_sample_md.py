@@ -6,6 +6,8 @@ if len(sys.argv) < 2:
     raise ValueError("Markdown table must be provided as a command-line argument")
 
 markdown_table = sys.argv[1]
+# Show markdown_table
+print(markdown_table)
 
 # Check if Sample.md exists
 if not os.path.exists('Sample.md'):
