@@ -27,16 +27,16 @@ jobs:
       - name: Convert Excel to Markdown
         id: convert
         run: |
-          result=$(python convert_excel_to_markdown.py $GITHUB_WORKSPACE/Sample.xlsx)
+          table=$(python convert_excel_to_markdown.py $GITHUB_WORKSPACE/Sample.xlsx)
           echo "table<<EOF" >> $GITHUB_OUTPUT
-          echo "$result" >> $GITHUB_OUTPUT
+          echo "$table" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Update Sample.md
         run: |
           python update_sample_md.py $TABLE
         env:
-          TABLE: ${{ steps.convert.outputs.result }}
+          TABLE: ${{ steps.convert.outputs.table }}
 
       - name: Commit and push changes
         run: |
