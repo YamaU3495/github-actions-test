@@ -1,11 +1,13 @@
 import sys
 import os
 
-# Check if the table file path is provided as a command-line argument
-if len(sys.argv) < 2:
-    raise ValueError("Table file path must be provided as a command-line argument")
+# Check if the required arguments are provided
+if len(sys.argv) < 4:
+    raise ValueError("Usage: update_sample_md.py <table_file_path> <section_name> <target_file>")
 
 table_file_path = sys.argv[1]
+section_name = sys.argv[2]
+target_file = sys.argv[3]
 
 # Check if the table file exists
 if not os.path.exists(table_file_path):
@@ -14,20 +16,19 @@ if not os.path.exists(table_file_path):
 # Read the table content from the file
 with open(table_file_path, 'r') as f:
     markdown_table = f.read()
-    print(markdown_table)
 
-# Check if Sample.md exists
-if not os.path.exists('Sample.md'):
-    raise FileNotFoundError("Sample.md not found")
+# Check if the target file exists
+if not os.path.exists(target_file):
+    raise FileNotFoundError(f"Target file not found: {target_file}")
 
-# Read the existing content of Sample.md
-with open('Sample.md', 'r') as f:
+# Read the existing content of the target file
+with open(target_file, 'r') as f:
     content = f.readlines()
 
-# Find the section starting with '# Sample.md'
+# Find the section starting with the specified section name
 start_index = None
 for i, line in enumerate(content):
-    if line.strip() == '# Sample.md':
+    if line.strip() == section_name:
         start_index = i
         break
 
@@ -43,10 +44,9 @@ if start_index is not None:
     # Insert the new table
     content.insert(start_index + 1, markdown_table + '\n')
 else:
-    # If the section is not found, append the new table at the end
-    content.append('# Sample.md\n')
-    content.append(markdown_table + '\n')
+    # If the section is not found throw an error
+    raise ValueError(f"Section not found: {section_name}")
 
-# Write the updated content back to Sample.md
-with open('Sample.md', 'w') as f:
+# Write the updated content back to the target file
+with open(target_file, 'w') as f:
     f.writelines(content)

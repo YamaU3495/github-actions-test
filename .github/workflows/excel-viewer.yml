@@ -32,7 +32,7 @@ jobs:
 
       - name: Update Sample.md
         run: |
-          python update_sample_md.py $RUNNER_TEMP/table.md
+          python update_sample_md.py $RUNNER_TEMP/table.md "# Sample.md" $GITHUB_WORKSPACE/Sample.md
 
       - name: Commit and push changes
         run: |
