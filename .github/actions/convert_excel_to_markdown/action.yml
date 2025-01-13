@@ -26,5 +26,7 @@ runs:
         echo "output_path=$output_path" >> $GITHUB_OUTPUT
       id: convert
       shell: bash
-  outputs:
-    markdown_table_path: ${{ steps.convert.outputs.output_path }}
+outputs:
+  markdown_table_path:
+    description: 'Path to the Markdown table conversion result'
+    value: ${{ steps.convert.outputs.output_path }}
