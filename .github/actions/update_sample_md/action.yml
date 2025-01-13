@@ -1,0 +1,19 @@
+name: Update Sample.md
+description: Update the Sample.md file with a new Markdown table
+inputs:
+  table_file_path:
+    description: 'Path to the table file'
+    required: true
+  section_name:
+    description: 'Name of the section to update'
+    required: true
+  target_file:
+    description: 'Path to the target file'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.table_file_path }}
+    - ${{ inputs.section_name }}
+    - ${{ inputs.target_file }}
