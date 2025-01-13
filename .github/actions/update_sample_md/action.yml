@@ -1,0 +1,32 @@
+name: Update Sample.md
+description: Update the Sample.md file with a new Markdown table
+inputs:
+  table_file_path:
+    description: 'Path to the table file'
+    required: true
+  section_name:
+    description: 'Name of the section to update'
+    required: true
+  target_file:
+    description: 'Path to the target file'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Set permissions
+      run: |
+        sudo chmod -R 777 $GITHUB_ACTION_PATH
+        sudo chmod -R 777 $GITHUB_TEMP
+      shell: bash
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: pip install pandas openpyxl tabulate
+      shell: bash
+    - name: Update Sample.md
+      run: python3 $GITHUB_ACTION_PATH/update_sample_md.py ${{ inputs.table_file_path }} ${{ inputs.section_name }} ${{ inputs.target_file }}
+      id: update
+      shell: bash

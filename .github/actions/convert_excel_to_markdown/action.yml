@@ -1,0 +1,39 @@
+name: Convert Excel to Markdown
+description: |
+  Convert an Excel file to a Markdown table
+inputs:
+  excel_file_path:
+    description: 'Path to the Excel file'
+    required: true
+  sheet_name:
+    description: 'Name of the sheet (optional)'
+    required: false
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Set permissions
+      run: |
+        sudo chmod -R 777 $GITHUB_ACTION_PATH
+        sudo chmod -R 777 $GITHUB_TEMP
+      shell: bash
+    - name: Install python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: pip install pandas openpyxl tabulate
+      shell: bash
+    - name: Convert Excel to Markdown
+      run: |
+        result=$(python3 $GITHUB_ACTION_PATH/convert_excel_to_markdown.py ${{ inputs.excel_file_path }} ${{ inputs.sheet_name }})
+        output_path=$GITHUB_TEMP/converted_table.md
+        echo "$result" > $output_path
+        echo "output_path=$output_path" >> $GITHUB_OUTPUT
+      id: convert
+      shell: bash
+outputs:
+  markdown_table_path:
+    description: 'Path to the Markdown table conversion result'
+    value: ${{ steps.convert.outputs.output_path }}
