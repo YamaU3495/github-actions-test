@@ -27,7 +27,7 @@ jobs:
       - name: Update Sample.md
         uses: ./.github/actions/update_sample_md
         with:
-          table_file_path: $RUNNER_TEMP/table.md
+          table_file_path: ${{ steps.convert.outputs.markdown_table_path }}
           section_name: "# Sample.md"
           target_file: ${{ github.workspace }}/Sample.md
 

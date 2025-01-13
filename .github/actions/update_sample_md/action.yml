@@ -21,6 +21,4 @@ runs:
     - name: Update Sample.md
       run: python3 update_sample_md.py ${{ inputs.table_file_path }} ${{ inputs.section_name }} ${{ inputs.target_file }}
       id: update
-    - name: Set output
-      run: echo "::set-output name=updated_file::$(cat ${{ inputs.target_file }})"
       shell: bash

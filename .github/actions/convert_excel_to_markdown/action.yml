@@ -1,5 +1,7 @@
 name: Convert Excel to Markdown
-description: Convert an Excel file to a Markdown table
+description: |
+  Convert an Excel file to a Markdown table
+  Output: Markdown table convert result path
 inputs:
   excel_file_path:
     description: 'Path to the Excel file'
@@ -15,12 +17,17 @@ runs:
   steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - uses: actions/setup-python@v5
+    - name: Install python
+      uses: actions/setup-python@v5
       with:
         python-version: '3.x'
     - name: Convert Excel to Markdown
-      run: python3 convert_excel_to_markdown.py ${{ inputs.excel_file_path }} ${{ inputs.sheet_name }}
+      run: |
+        result=$(python3 convert_excel_to_markdown.py ${{ inputs.excel_file_path }} ${{ inputs.sheet_name }})
+        output_path=$GITHUB_TEMP/converted_table.md
+        echo "$result" > $output_path
+        echo "output_path=$output_path" >> $GITHUB_OUTPUT
       id: convert
-    - name: Set output
-      run: echo "::set-output name=markdown_table::$(cat markdown_table.md)"
       shell: bash
+  outputs:
+    markdown_table_path: ${{ steps.convert.outputs.output_path }}
