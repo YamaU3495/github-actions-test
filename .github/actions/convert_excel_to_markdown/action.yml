@@ -11,8 +11,16 @@ outputs:
   markdown_table:
     description: 'Markdown table'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.excel_file_path }}
-    - ${{ inputs.sheet_name }}
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    - name: Convert Excel to Markdown
+      run: python3 convert_excel_to_markdown.py ${{ inputs.excel_file_path }} ${{ inputs.sheet_name }}
+      id: convert
+    - name: Set output
+      run: echo "::set-output name=markdown_table::$(cat markdown_table.md)"
+      shell: bash
