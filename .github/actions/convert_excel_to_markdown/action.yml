@@ -10,8 +10,7 @@ inputs:
     description: 'Name of the sheet (optional)'
     required: false
 outputs:
-  markdown_table:
-    description: 'Markdown table'
+  markdown_table_path: ${{ steps.convert.outputs.output_path }}
 runs:
   using: 'composite'
   steps:
@@ -29,5 +28,3 @@ runs:
         echo "output_path=$output_path" >> $GITHUB_OUTPUT
       id: convert
       shell: bash
-  outputs:
-    markdown_table_path: ${{ steps.convert.outputs.output_path }}
