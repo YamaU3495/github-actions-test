@@ -19,6 +19,7 @@ runs:
         python-version: '3.x'
     - name: Install dependencies
       run: pip install pandas openpyxl tabulate
+      shell: bash
     - name: Convert Excel to Markdown
       run: |
         result=$(python3 $GITHUB_ACTION_PATH/convert_excel_to_markdown.py ${{ inputs.excel_file_path }} ${{ inputs.sheet_name }})
