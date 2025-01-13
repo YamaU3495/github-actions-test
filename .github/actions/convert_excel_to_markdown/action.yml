@@ -14,8 +14,9 @@ runs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Set permissions
-      run: sudo chmod -R 777 $GITHUB_ACTION_PATH
-      shell: bash
+      run: |
+        sudo chmod -R 777 $GITHUB_ACTION_PATH
+        sudo chmod -R 777 $GITHUB_TEMP
     - name: Install python
       uses: actions/setup-python@v5
       with:
