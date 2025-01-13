@@ -20,12 +20,13 @@ runs:
         python-version: '3.x'
     - name: Convert Excel to Markdown
       run: |
-        result=$(python3 convert_excel_to_markdown.py ${{ inputs.excel_file_path }} ${{ inputs.sheet_name }})
+        result=$(python3 $GITHUB_ACTION_PATH/convert_excel_to_markdown.py ${{ inputs.excel_file_path }} ${{ inputs.sheet_name }})
         output_path=$GITHUB_TEMP/converted_table.md
         echo "$result" > $output_path
         echo "output_path=$output_path" >> $GITHUB_OUTPUT
       id: convert
       shell: bash
+      env:
 outputs:
   markdown_table_path:
     description: 'Path to the Markdown table conversion result'
