@@ -17,6 +17,7 @@ runs:
       run: |
         sudo chmod -R 777 $GITHUB_ACTION_PATH
         sudo chmod -R 777 $GITHUB_TEMP
+      shell: bash
     - name: Install python
       uses: actions/setup-python@v5
       with:
