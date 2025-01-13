@@ -13,6 +13,9 @@ runs:
   steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: Set permissions
+      run: sudo chmod -R 777 $GITHUB_ACTION_PATH
+      shell: bash
     - name: Install python
       uses: actions/setup-python@v5
       with:
