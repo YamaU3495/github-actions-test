@@ -18,6 +18,8 @@ runs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.x'
+    - name: Install dependencies
+      run: pip install pandas openpyxl tabulate
     - name: Update Sample.md
       run: python3 $GITHUB_ACTION_PATH/update_sample_md.py ${{ inputs.table_file_path }} ${{ inputs.section_name }} ${{ inputs.target_file }}
       id: update
